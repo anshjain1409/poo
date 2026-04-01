@@ -1,0 +1,11 @@
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+pymongo==4.6.0
+ultralytics==8.0.200
+opencv-python==4.8.1.78
+numpy==1.24.3
+qrcode[pil]==7.4.2
+python-dotenv==1.0.0
+geopy==2.4.0
+google-generativeai
