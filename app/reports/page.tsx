@@ -216,7 +216,7 @@ export default function PotholeReportsPage() {
                     <div className="w-full md:w-48 h-48 bg-gradient-to-br from-secondary/20 to-accent/10 overflow-hidden flex-shrink-0">
                       {report.image_path ? (
                         <img 
-                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}${report.image_path}`}
+                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/${report.image_path}`}
                           alt="Pothole"
                           className="w-full h-full object-cover hover:scale-105 transition-transform"
                           onError={(e) => {
@@ -302,7 +302,7 @@ export default function PotholeReportsPage() {
                     <Card className="overflow-hidden border-2 border-primary/30">
                       <div className="aspect-square bg-secondary/30">
                         <img 
-                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}${selectedReport.image_path}`}
+                          src={`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000'}/${selectedReport.image_path}`}
                           alt="Pothole"
                           className="w-full h-full object-cover"
                           onError={(e) => {

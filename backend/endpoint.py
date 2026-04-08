@@ -100,7 +100,7 @@ MANHOLE_MODEL_PATH = os.getenv("MANHOLE_MODEL_PATH", "models/manhole/manhole_bes
 # Detection configuration
 POTHOLE_CONF_THRESHOLD = float(os.getenv("POTHOLE_CONF_THRESHOLD", "0.25"))
 IOU_THRESHOLD = float(os.getenv("IOU_THRESHOLD", "0.1"))
-LOCATION_VERIFICATION_RADIUS = 500.0  # Increased for easier testing
+LOCATION_VERIFICATION_RADIUS = float(os.getenv("LOCATION_VERIFICATION_RADIUS", "15"))
 
 # Cost calculation
 BASE_REPAIR_COST = int(os.getenv("BASE_REPAIR_COST", "500"))
@@ -670,6 +670,27 @@ async def mark_job_paid(job_id: str):
         if result.modified_count == 0:
             raise HTTPException(status_code=404, detail="Job not found")
         return {"status": "success", "message": "Job marked as paid"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/payment/status/{job_id}")
+async def get_payment_status(job_id: str):
+    """Check the payment status of a job"""
+    try:
+        report = reports_collection.find_one({"_id": ObjectId(job_id)})
+        if not report:
+            raise HTTPException(status_code=404, detail="Job not found")
+        
+        status = report.get("status", "OPEN")
+        return {
+            "status": status,
+            "paid": status == "PAID",
+            "paid_at": report.get("paid_at", "").isoformat() if report.get("paid_at") else None,
+            "bounty": report.get("bounty", 0)
+        }
     except HTTPException:
         raise
     except Exception as e:

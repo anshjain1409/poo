@@ -734,7 +734,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="text-center">
-            <p className="text-xs text-slate-500">© 2024 RoadFix. All rights reserved. Built for sustainable cities.</p>
+            <p className="text-xs text-slate-500">© 2026 RoadFix. All rights reserved. Built for sustainable cities.</p>
           </div>
         </div>
       </footer>
